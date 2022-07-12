@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DxBox :height="100" direction="col" width="100%">
+    <DxBox :height="100" direction="col">
       <!-- <DxBox :height="50" direction="col" width="100%"> -->
       <DxItem :ratio="1">
         <template #default>
@@ -20,7 +20,7 @@
     </DxBox>
     <br />
 
-    <DxBox :height="30" direction="col" width="100%">
+    <DxBox :height="30" direction="col">
       <DxItem :ratio="1">
         <template #default>
           <div class="tipe demo-dark header">Tipe FORM: Me-48</div>
@@ -35,8 +35,11 @@
       id="gridContainer"
       :data-source="employees"
       key-expr="ID"
+      :word-wrap-enabled="true"
       :show-borders="true"
+      :alignment="center"
       @exporting="onExporting"
+      CssClass="customGrid"
     >
       <!-- <DxItem> -->
 
@@ -45,9 +48,12 @@
       <DxColumn
         data-field="Prefix"
         caption="No"
+        vertical-alignment="middle"
         :width="40"
         alignment=" center"
       />
+      <!-- :fixed="true" -->
+
       <DxColumn data-field="Stasiun" :width="200" alignment="center" />
       <DxColumn caption="Tanggal" alignment="center">
         <DxColumn data-field="1" :width="40" alignment="center" />
@@ -87,10 +93,14 @@
       <DxColumn
         caption="Rata-rata Data Masuk"
         alignment="center"
-        TextWrapping="Wrap"
         :width="70"
+        :height="100"
       />
-      <DxColumn caption="Penyebab Data Tidak Masuk" alignment="center" />
+      <DxColumn
+        :width="90"
+        caption="Penyebab Data Tidak Masuk"
+        alignment="center"
+      />
 
       <!-- </DxItem> -->
     </DxDataGrid>
@@ -157,23 +167,40 @@ export default {
 
           headerRowHasil.getCell(1).value =
             "Hasil Monitoring BMKGSoft Bulan Mei 2022";
-          headerRowHasil.getCell(1).font = { name: "Segoe UI Light", size: 22 };
-          headerRowHasil.getCell(1).alignment = { horizontal: "center" };
+          headerRowHasil.getCell(1).font = {
+            name: "Dyuthi",
+            size: 22,
+            fontWeight: "bold",
+            color: "#2acaea",
+          };
+          headerRowHasil.getCell(1).alignment = {
+            horizontal: "center",
+          };
 
-          const headerRowBalai = worksheet.getRow(3);
+          const headerRowBalai = worksheet.getRow(4);
           headerRowBalai.height = 30;
-          worksheet.mergeCells(3, 1, 3, 35);
+          worksheet.mergeCells(4, 1, 4, 35);
 
           headerRowBalai.getCell(1).value = "Balai Besar MKG Wilayah 1";
-          headerRowBalai.getCell(1).font = { name: "Segoe UI Light", size: 22 };
-          headerRowBalai.getCell(1).alignment = { horizontal: "center" };
+
+          headerRowBalai.getCell(1).font = {
+            name: "Dyuthi",
+            size: 12,
+            verticalAlignment: "center ",
+            fontWeight: "bold",
+            color: { argb: "FF0000FF" },
+          };
+          headerRowBalai.getCell(1).alignment = {
+            horizontal: "center",
+            vertical: "middle",
+          };
 
           const headerRowTipe = worksheet.getRow(6);
           headerRowTipe.height = 20;
           worksheet.mergeCells(6, 1, 6, 7);
 
           headerRowTipe.getCell(1).value = "Tipe FORM: Me-48";
-          headerRowBalai.getCell(1).font = { name: "Segoe UI Light", size: 14 };
+          headerRowTipe.getCell(1).font = { name: "Segoe UI Light", size: 14 };
           headerRowTipe.getCell(1).alignment = { horizontal: "left" };
 
           // footer
@@ -203,7 +230,7 @@ export default {
           footerRowKoordinator.getCell(3).value = "Sub Koordinator";
           footerRowKoordinator.getCell(3).font = {
             color: { argb: "#000" },
-            // italic: true,
+            italic: true,
           };
           footerRow.getCell(1).alignment = { horizontal: "left" };
 
@@ -219,7 +246,9 @@ export default {
 
           footerRowBidang.getCell(3).value = "Bidang Manajemen Database MKG,";
           footerRowBidang.getCell(3).font = {
-            color: { argb: "#000" },
+            color: "red",
+            style: "bold",
+            // name: "Times-Bold",
             // italic: true,
           };
           footerRow.getCell(1).alignment = { horizontal: "left" };
@@ -288,13 +317,25 @@ export default {
 }
 </style> -->
 <style>
+.dx-datagrid-headers.dx-header-multi-row
+  .dx-datagrid-content
+  .dx-datagrid-table
+  .dx-row.dx-header-row
+  > td {
+  vertical-align: middle;
+  text-align: center vertically;
+  font-weight: bold;
+}
 .rect {
   text-align: center;
+  vertical-align: middle;
   font-size: 25px;
   font-weight: bold;
   padding-top: 10px;
   height: 100%;
+  color: #2acaea;
 }
+
 .tipe {
   text-align: left;
   font-size: 16px;
@@ -303,7 +344,7 @@ export default {
   height: 100%;
 }
 
-.demo-light {
+/* .demo-light {
   background: rgba(245, 229, 166, 0.5);
 }
 
@@ -322,5 +363,5 @@ export default {
 .small {
   height: 50px;
   border: 1px solid lightgray;
-}
+} */
 </style>
