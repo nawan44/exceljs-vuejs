@@ -5,7 +5,8 @@
       <DxItem :ratio="1">
         <template #default>
           <div class="rect demo-dark header">
-            Hasil Monitoring BMKGSoft Bulan Mei 2022
+            <!-- {{ moment().format("dddd, MMMM Do YYYY") }} -->
+            {{ moment().format("DD MMMM  YYYY") }}
           </div>
         </template>
       </DxItem>
@@ -124,6 +125,8 @@ import {
   // DxGrouping,DxItem,
 } from "devextreme-vue/data-grid";
 import { DxBox, DxItem } from "devextreme-vue/box";
+import moment from "moment";
+moment.locale("id");
 
 import { Workbook } from "exceljs";
 import { saveAs } from "file-saver";
@@ -148,6 +151,7 @@ export default {
     };
   },
   methods: {
+    moment,
     onExporting(e) {
       const workbook = new Workbook();
       const worksheet = workbook.addWorksheet("Employees");
@@ -268,7 +272,8 @@ export default {
           //   footerRowIndexBidang,
           //   33
           // );
-          footerRowJakarta.getCell(29).value = "Jakarta,";
+          footerRowJakarta.getCell(29).value =
+            "Jakarta, " + moment().format("DD MMMM  YYYY");
           footerRowJakarta.getCell(4).font = {
             color: { argb: "#000" },
             // italic: true,
